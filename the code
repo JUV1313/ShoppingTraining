@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>קנייה בטוחה - אתר תרגול</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f6fa;
+  color: #222;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #2b8a3e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.logo-text h1 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.logo-text p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.main-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  border: none;
+  background: transparent;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.nav-btn:hover {
+  background: #f0f0f0;
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.primary-outline-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #2f9e44;
+  background: transparent;
+  color: #2f9e44;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.primary-outline-btn:hover {
+  background: #e6f5ea;
+}
+
+#app-root {
+  padding: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #2b8a3e, #69db7c);
+  border-radius: 18px;
+  padding: 1.8rem 1.6rem;
+  color: #fff;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+  gap: 1.5rem;
+}
+
+.hero-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+}
+
+.hero-card p {
+  margin-top: 0;
+  font-size: 0.95rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.primary-btn {
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  background: #fff;
+  color: #2b8a3e;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.primary-btn:hover {
+  background: #f1fff4;
+}
+
+.secondary-btn {
+  border: 1px solid rgba(255,255,255,0.8);
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.secondary-btn:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.hero-list {
+  font-size: 0.85rem;
+  margin: 0;
+  padding-right: 1rem;
+}
+
+.hero-list li {
+  margin-bottom: 0.4rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.12);
+  font-size: 0.8rem;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffd43b;
+}
+
+.section-title {
+  margin-top: 1.8rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.categories-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.category-chip {
+  border-radius: 999px;
+  border: 1px solid #d0d0d0;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.category-chip.active {
+  background: #2f9e44;
+  color: #fff;
+  border-color: #2f9e44;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 0.9rem;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.product-image {
+  width: 100%;
+  height: 140px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #edf2ff, #e6fcf5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.product-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.price-text {
+  font-weight: 600;
+  color: #2b8a3e;
+}
+
+.add-btn {
+  margin-top: 0.4rem;
+  border-radius: 999px;
+  border: none;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.85rem;
+  background: #2f9e44;
+  color: #fff;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #2b8a3e;
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1.2rem;
+}
+
+.cart-list {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 1px solid #e2e2e2;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-name {
+  font-size: 0.9rem;
+}
+
+.cart-qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  border: 1px solid #d0d0d0;
+  padding: 0.15rem 0.4rem;
+}
+
+.qty-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0 0.25rem;
+}
+
+.cart-summary {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 1px solid #e2e2e2;
+  font-size: 0.9rem;
+}
+
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.cart-summary-total {
+  font-weight: 700;
+  margin-top: 0.6rem;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 0.5rem;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 1px solid #e2e2e2;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.info-card ul {
+  padding-right: 1.2rem;
+  margin: 0.4rem 0 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+}
+
+label {
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+input {
+  padding: 0.45rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  font-size: 0.9rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2f9e44;
+  box-shadow: 0 0 0 1px rgba(47,158,68,0.2);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.small-top {
+  margin-top: 0.5rem;
+}
+
+.checkout-layout {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 1px solid #e2e2e2;
+}
+
+.checkout-note {
+  font-size: 0.85rem;
+  background: #fff3bf;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+}
+
+.thankyou-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  border: 1px solid #e2e2e2;
+}
+
+.thankyou-card h2 {
+  margin-top: 0;
+}
+
+.thankyou-details {
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.thankyou-details ul {
+  padding-right: 1.1rem;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.35);
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 1.4rem;
+  border-radius: 14px;
+  max-width: 380px;
+  width: 90%;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.modal-note {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.google-btn {
+  margin-top: 0.6rem;
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid #d0d0d0;
+  padding: 0.55rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  background: #fff;
+  font-size: 0.9rem;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  background: conic-gradient(from 45deg, #4285f4, #ea4335, #fbbc05, #34a853, #4285f4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.divider {
+  margin: 0.7rem 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #777;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.divider::before {
+  right: 0;
+}
+
+.divider::after {
+  left: 0;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .hero-card {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo-area">
+      <div class="logo-circle">✓</div>
+      <div class="logo-text">
+        <h1>קנייה בטוחה</h1>
+        <p>אתר תרגול לצרכנות דיגיטלית, אין כאן קניות אמיתיות</p>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <button class="nav-btn" data-view="home">בית</button>
+      <button class="nav-btn" data-view="catalog">קטגוריות ומוצרים</button>
+      <button class="nav-btn" data-view="cart">עגלת קניות</button>
+    </nav>
+    <div class="user-area">
+      <span id="user-greeting"></span>
+      <button id="login-btn" class="primary-outline-btn">התחברות</button>
+    </div>
+  </header>
+
+  <main id="app-root"></main>
+
+  <footer class="site-footer">
+    <p>האתר נועד לתרגול בלבד, אין חיובי אשראי ואין שמירת פרטים אישיים.</p>
+  </footer>
+
+  <div id="login-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>התחברות לתרגול</h2>
+      <p class="modal-note">
+        זהו תרגול של התחברות לחשבון, לא מתבצעת התחברות אמיתית לגוגל.
+      </p>
+      <button id="fake-google-btn" class="google-btn">
+        <span class="google-icon">G</span>
+        התחברות עם Google לדוגמה
+      </button>
+      <div class="divider">
+        <span>או</span>
+      </div>
+      <form id="manual-login-form" class="form-grid">
+        <label>
+          שם פרטי
+          <input type="text" id="login-name" required />
+        </label>
+        <label>
+          כתובת אימייל
+          <input type="email" id="login-email" required />
+        </label>
+        <button type="submit" class="primary-btn full-width">
+          התחברות לאימון
+        </button>
+      </form>
+      <button id="close-login-modal" class="secondary-btn full-width small-top">
+        סגירה
+      </button>
+    </div>
+  </div>
+
+  <script>
+const state = {
+  user: null,
+  cart: [],
+  products: [
+    { id: 1, name: "לחם פרוס מלא", category: "סופרמרקט", price: 9.9, icon: "🍞" },
+    { id: 2, name: "חלב 3 אחוז", category: "סופרמרקט", price: 6.5, icon: "🥛" },
+    { id: 3, name: "קפה נמס 200 גרם", category: "סופרמרקט", price: 23.9, icon: "☕" },
+    { id: 4, name: "טלפון סלולרי בסיסי", category: "מוצרי חשמל", price: 299, icon: "📱" },
+    { id: 5, name: "קומקום חשמלי", category: "מוצרי חשמל", price: 89, icon: "☕" },
+    { id: 6, name: "קרם לחות לפנים", category: "בריאות וטיפוח", price: 39, icon: "🧴" },
+    { id: 7, name: "שמפו לשיער", category: "בריאות וטיפוח", price: 24.9, icon: "🧴" },
+    { id: 8, name: "חולצת טריקו נוחה", category: "ביגוד", price: 49, icon: "👕" },
+    { id: 9, name: "גרביים כותנה 3 זוגות", category: "ביגוד", price: 29, icon: "🧦" }
+  ]
+};
+
+const categories = ["הכל", "סופרמרקט", "מוצרי חשמל", "בריאות וטיפוח", "ביגוד"];
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupHeaderEvents();
+  renderView("home");
+});
+
+function setupHeaderEvents() {
+  const navButtons = document.querySelectorAll(".nav-btn");
+  navButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const view = btn.dataset.view;
+      if (view === "catalog") {
+        renderView("catalog");
+      } else if (view === "cart") {
+        renderView("cart");
+      } else {
+        renderView("home");
+      }
+    });
+  });
+
+  const loginBtn = document.getElementById("login-btn");
+  loginBtn.addEventListener("click", openLoginModal);
+
+  document.getElementById("close-login-modal").addEventListener("click", closeLoginModal);
+
+  document.getElementById("fake-google-btn").addEventListener("click", () => {
+    state.user = {
+      name: "מתרגלת גוגל",
+      email: "example.user@gmail.com"
+    };
+    updateUserGreeting();
+    closeLoginModal();
+    renderView("catalog");
+  });
+
+  document.getElementById("manual-login-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("login-name").value.trim();
+    const email = document.getElementById("login-email").value.trim();
+    if (!name || !email) return;
+    state.user = { name, email };
+    updateUserGreeting();
+    closeLoginModal();
+    renderView("catalog");
+  });
+
+  updateUserGreeting();
+}
+
+function openLoginModal() {
+  document.getElementById("login-modal").classList.remove("hidden");
+}
+
+function closeLoginModal() {
+  document.getElementById("login-modal").classList.add("hidden");
+}
+
+function updateUserGreeting() {
+  const span = document.getElementById("user-greeting");
+  const loginBtn = document.getElementById("login-btn");
+  if (state.user) {
+    span.textContent = `שלום, ${state.user.name}`;
+    loginBtn.textContent = "החלפת משתמש";
+  } else {
+    span.textContent = "";
+    loginBtn.textContent = "התחברות";
+  }
+}
+
+function renderView(view) {
+  const root = document.getElementById("app-root");
+  if (view === "home") {
+    root.innerHTML = buildHomeView();
+    const startBtn = document.getElementById("start-training-btn");
+    startBtn.addEventListener("click", () => {
+      if (!state.user) {
+        openLoginModal();
+      } else {
+        renderView("catalog");
+      }
+    });
+  } else if (view === "catalog") {
+    root.innerHTML = buildCatalogView();
+    setupCatalogEvents();
+  } else if (view === "cart") {
+    root.innerHTML = buildCartView();
+    setupCartEvents();
+  } else if (view === "checkout") {
+    root.innerHTML = buildCheckoutView();
+    setupCheckoutEvents();
+  } else if (view === "thankyou") {
+    root.innerHTML = buildThankyouView();
+    setupThankyouEvents();
+  }
+}
+
+function buildHomeView() {
+  return `
+    <section class="hero-card">
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          סביבת אימון בטוחה
+        </div>
+        <h2>מתרגלים קניות אונליין, בלי כרטיס אמיתי ובלי לחץ</h2>
+        <p>
+          באתר הזה אפשר להתנסות בחיפוש מוצרים, הוספה לעגלת קניות, מילוי פרטי כתובת ופרטי כרטיס,
+          הכל בצורה בטוחה לצורכי תרגול בלבד.
+        </p>
+        <div class="hero-actions">
+          <button id="start-training-btn" class="primary-btn">
+            התחלת תרגול קניות אונליין
+          </button>
+          <button class="secondary-btn" onclick="renderView('catalog')">
+            לראות את המוצרים לדוגמה
+          </button>
+        </div>
+      </div>
+      <div>
+        <p><strong>בסדנה אפשר לתרגל נושאים כגון:</strong></p>
+        <ul class="hero-list">
+          <li>השוואת מחירים בין מוצרים דומים</li>
+          <li>הבנת עגלת הקניות והוספה או הורדה של פריטים</li>
+          <li>מילוי נכון של כתובת למשלוח ופרטי קשר</li>
+          <li>הכנסת פרטי כרטיס אשראי לצורכי תרגול בלבד</li>
+          <li>שיחה על בטיחות, סימני אזהרה ואתרי קניות אמינים</li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h3 class="section-title">איך זה עובד בקצרה</h3>
+      <div class="info-card">
+        <ul>
+          <li>נרשמים לתרגול עם שם ואימייל, אפשר גם עם "חיבור גוגל" מדומה.</li>
+          <li>בוחרים מוצרים לדוגמה לפי קטגוריות ומוסיפים לעגלה.</li>
+          <li>ממשיכים למסך תשלום ומתרגלים מילוי פרטים ופרטי כרטיס פיקטיבי.</li>
+          <li>מגיעים למסך "תודה שקנית", ורואים סיכום הזמנה.</li>
+          <li>הכל תרגול בלבד, אין חיוב אמיתי ואין שמירת נתוני כרטיס.</li>
+        </ul>
+      </div>
+    </section>
+  `;
+}
+
+function buildCatalogView() {
+  const categoryChips = categories.map(cat => {
+    return `<button class="category-chip${cat === "הכל" ? " active" : ""}" data-category="${cat}">${cat}</button>`;
+  }).join("");
+
+  const productsHtml = buildProductsGrid("הכל");
+
+  return `
+    <section>
+      <h2 class="section-title">בחירת מוצרים לדוגמה</h2>
+      <p>בחרו קטגוריה והוסיפו מוצרים לעגלת הקניות, לצורכי תרגול בלבד.</p>
+      <div class="categories-row">
+        ${categoryChips}
+      </div>
+      <div id="products-grid" class="products-grid">
+        ${productsHtml}
+      </div>
+    </section>
+  `;
+}
+
+function buildProductsGrid(category) {
+  const items = state.products.filter(p => category === "הכל" || p.category === category);
+  if (!items.length) {
+    return `<p>לא נמצאו מוצרים בקטגוריה זו.</p>`;
+  }
+  return items.map(p => {
+    return `
+      <article class="product-card" data-id="${p.id}">
+        <div class="product-image">${p.icon}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-meta">
+          <span>${p.category}</span>
+          <span class="price-text">${p.price.toFixed(1)} ₪</span>
+        </div>
+        <button class="add-btn" data-id="${p.id}">הוספה לעגלה</button>
+      </article>
+    `;
+  }).join("");
+}
+
+function setupCatalogEvents() {
+  const chips = document.querySelectorAll(".category-chip");
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      chips.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      const category = chip.dataset.category;
+      const grid = document.getElementById("products-grid");
+      grid.innerHTML = buildProductsGrid(category);
+      attachAddToCartButtons();
+    });
+  });
+  attachAddToCartButtons();
+}
+
+function attachAddToCartButtons() {
+  const buttons = document.querySelectorAll(".add-btn");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = Number(btn.dataset.id);
+      addToCart(id);
+    });
+  });
+}
+
+function addToCart(productId) {
+  const existing = state.cart.find(item => item.id === productId);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    const product = state.products.find(p => p.id === productId);
+    state.cart.push({ ...product, qty: 1 });
+  }
+  alert("המוצר נוסף לעגלה לצורכי תרגול");
+}
+
+function buildCartView() {
+  const hasItems = state.cart.length > 0;
+  const itemsHtml = hasItems ? state.cart.map(item => {
+    const lineTotal = item.price * item.qty;
+    return `
+      <div class="cart-item" data-id="${item.id}">
+        <div>
+          <div class="cart-name">${item.name}</div>
+          <div style="font-size:0.8rem; color:#777;">${item.category}</div>
+        </div>
+        <div>
+          <div class="cart-qty-controls">
+            <button class="qty-btn" data-action="minus">−</button>
+            <span>${item.qty}</span>
+            <button class="qty-btn" data-action="plus">+</button>
+          </div>
+        </div>
+        <div style="text-align:left; font-size:0.85rem;">
+          ${(lineTotal).toFixed(1)} ₪
+        </div>
+      </div>
+    `;
+  }).join("") : `<p>העגלה ריקה כרגע, אפשר לבחור מוצרים בדף הקטגוריות.</p>`;
+
+  const total = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const itemsCount = state.cart.reduce((sum, item) => sum + item.qty, 0);
+
+  return `
+    <section>
+      <h2 class="section-title">עגלת קניות לדוגמה</h2>
+      <div class="cart-layout">
+        <div class="cart-list">
+          ${itemsHtml}
+        </div>
+        <div class="cart-summary">
+          <div class="cart-summary-row">
+            <span>מספר פריטים בסך הכל</span>
+            <span>${itemsCount}</span>
+          </div>
+          <div class="cart-summary-row">
+            <span>סכום ביניים</span>
+            <span>${total.toFixed(1)} ₪</span>
+          </div>
+          <div class="cart-summary-row">
+            <span>דמי משלוח לדוגמה</span>
+            <span>${total > 150 ? "חינם" : "15.0 ₪"}</span>
+          </div>
+          <div class="cart-summary-total">
+            <span>סכום לתשלום לדוגמה</span>
+            <span>${(total + (total > 150 || total === 0 ? 0 : 15)).toFixed(1)} ₪</span>
+          </div>
+          <button class="primary-btn full-width small-top" ${hasItems ? "" : "disabled"} id="go-to-checkout">
+            המשך לתשלום לדוגמה
+          </button>
+          <button class="secondary-btn full-width small-top" onclick="renderView('catalog')">
+            חזרה לבחירת מוצרים
+          </button>
+          <div class="info-card" style="margin-top:0.8rem;">
+            <strong>לתשומת לבכם:</strong>
+            <p style="margin:0.4rem 0 0; font-size:0.8rem;">
+              המספרים כאן לדוגמה בלבד. אפשר להשתמש בעגלה כדי לתרגל בדיקה של הסכום הסופי, להבין השפעת דמי משלוח, ולדבר על קניות חכמות.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function setupCartEvents() {
+  const goToCheckout = document.getElementById("go-to-checkout");
+  if (goToCheckout) {
+    goToCheckout.addEventListener("click", () => {
+      if (!state.user) {
+        alert("כדי להמשיך לתשלום, יש להתחבר לתרגול.");
+        openLoginModal();
+      } else {
+        renderView("checkout");
+      }
+    });
+  }
+
+  document.querySelectorAll(".cart-item").forEach(itemEl => {
+    const id = Number(itemEl.dataset.id);
+    itemEl.querySelectorAll(".qty-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const action = btn.dataset.action;
+        const item = state.cart.find(i => i.id === id);
+        if (!item) return;
+        if (action === "plus") {
+          item.qty += 1;
+        } else if (action === "minus") {
+          item.qty -= 1;
+          if (item.qty <= 0) {
+            state.cart = state.cart.filter(i => i.id !== id);
+          }
+        }
+        renderView("cart");
+      });
+    });
+  });
+}
+
+function buildCheckoutView() {
+  const total = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const shipping = total > 150 || total === 0 ? 0 : 15;
+  const finalTotal = total + shipping;
+
+  const name = state.user ? state.user.name : "";
+  const email = state.user ? state.user.email : "";
+
+  return `
+    <section class="checkout-layout">
+      <h2 class="section-title">מילוי פרטים ופרטי תשלום לדוגמה</h2>
+      <p class="checkout-note">
+        כאן מתרגלים מילוי כתובת ופרטי כרטיס אשראי. אין חיוב אמיתי, אין חיבור לחברת אשראי,
+        והנתונים אינם נשמרים לצורכי תשלום.
+      </p>
+      <form id="checkout-form">
+        <h3>פרטים אישיים וכתובת</h3>
+        <div class="form-grid">
+          <label>
+            שם פרטי
+            <input type="text" id="first-name" required value="${name}" />
+          </label>
+          <label>
+            שם משפחה
+            <input type="text" id="last-name" required />
+          </label>
+          <label>
+            כתובת מלאה
+            <input type="text" id="address" required />
+          </label>
+          <label>
+            עיר
+            <input type="text" id="city" required />
+          </label>
+          <label>
+            טלפון
+            <input type="tel" id="phone" required />
+          </label>
+          <label>
+            אימייל לקבלת "קבלה"
+            <input type="email" id="email" required value="${email}" />
+          </label>
+        </div>
+
+        <h3 style="margin-top:1.2rem;">פרטי כרטיס אשראי לדוגמה</h3>
+        <div class="form-grid">
+          <label>
+            מספר כרטיס (16 ספרות)
+            <input type="text" id="card-number" inputmode="numeric" required placeholder="1234 5678 9012 3456" />
+          </label>
+          <label>
+            תוקף (חודש/שנה)
+            <input type="text" id="card-expiry" required placeholder="08/28" />
+          </label>
+          <label>
+            3 ספרות בגב הכרטיס (CVV)
+            <input type="text" id="card-cvv" inputmode="numeric" required placeholder="123" />
+          </label>
+        </div>
+
+        <div class="info-card" style="margin-top:1rem;">
+          <div class="cart-summary-row">
+            <span>סכום המוצרים</span>
+            <span>${total.toFixed(1)} ₪</span>
+          </div>
+          <div class="cart-summary-row">
+            <span>דמי משלוח לדוגמה</span>
+            <span>${shipping.toFixed(1)} ₪</span>
+          </div>
+          <div class="cart-summary-total">
+            <span>סכום לתשלום לדוגמה</span>
+            <span>${finalTotal.toFixed(1)} ₪</span>
+          </div>
+        </div>
+
+        <button type="submit" class="primary-btn full-width small-top">
+          אישור "תשלום" וסיום תרגול
+        </button>
+      </form>
+    </section>
+  `;
+}
+
+function setupCheckoutEvents() {
+  const form = document.getElementById("checkout-form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const cardNumber = document.getElementById("card-number").value.replace(/\s/g, "");
+    const cvv = document.getElementById("card-cvv").value.trim();
+
+    const cardValid = /^[0-9]{16}$/.test(cardNumber);
+    const cvvValid = /^[0-9]{3}$/.test(cvv);
+
+    if (!cardValid || !cvvValid) {
+      alert("לצורך התרגול, יש להכניס 16 ספרות במספר הכרטיס ו 3 ספרות ב CVV.");
+      return;
+    }
+
+    const firstName = document.getElementById("first-name").value.trim();
+    const lastName = document.getElementById("last-name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const city = document.getElementById("city").value.trim();
+
+    state.lastOrderDetails = {
+      firstName,
+      lastName,
+      email,
+      address,
+      city
+    };
+
+    renderView("thankyou");
+  });
+}
+
+function buildThankyouView() {
+  const total = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const shipping = total > 150 || total === 0 ? 0 : 15;
+  const finalTotal = total + shipping;
+  const details = state.lastOrderDetails || {};
+
+  const itemsHtml = state.cart.map(item => {
+    const lineTotal = item.price * item.qty;
+    return `<li>${item.name} x ${item.qty} , סך הכל ${lineTotal.toFixed(1)} ₪</li>`;
+  }).join("");
+
+  return `
+    <section class="thankyou-card">
+      <h2>תודה שקנית באתר התרגול</h2>
+      <p>
+        ההזמנה המדומה שלך התקבלה. זו סימולציה לצורכי לימוד בלבד,
+        אין חיוב אמיתי של כרטיס אשראי ואין שמירת נתוני הכרטיס.
+      </p>
+      <div class="thankyou-details">
+        <h3>סיכום הזמנה לדוגמה</h3>
+        <ul>
+          ${itemsHtml || "<li>לא נבחרו מוצרים, זוהי רק הדגמת מסך הסיכום.</li>"}
+        </ul>
+        <p><strong>סכום כולל לדוגמה:</strong> ${finalTotal.toFixed(1)} ₪</p>
+        <p>
+          <strong>ישלח מייל מדומה לכתובת:</strong>
+          ${details.email || (state.user ? state.user.email : "example@demo.com")}
+          <br />
+          במערכת אמיתית זה היה דוח קבלה, כאן זה שימוש לצורכי תרגול בלבד.
+        </p>
+        <button class="primary-btn small-top" id="new-training-btn">
+          התחלת תרגול חדש
+        </button>
+        <button class="secondary-btn small-top" onclick="renderView('catalog')">
+          חזרה לבחירת מוצרים
+        </button>
+      </div>
+    </section>
+  `;
+}
+
+function setupThankyouEvents() {
+  const btn = document.getElementById("new-training-btn");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      state.cart = [];
+      renderView("catalog");
+    });
+  }
+}
+  </script>
+</body>
+</html>
