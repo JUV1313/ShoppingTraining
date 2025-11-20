@@ -12,7 +12,7 @@
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f5f6fa;
+  background: linear-gradient(#f5f6fa, #eef3ff);
   color: #222;
 }
 
@@ -191,6 +191,7 @@ body {
   margin-top: 1.8rem;
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
+  color: #4a8cff;
 }
 
 .categories-row {
@@ -240,6 +241,13 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 2rem;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
 
 .product-name {
@@ -520,11 +528,23 @@ input:focus {
   left: 0;
 }
 
-.site-footer {
-  text-align: center;
-  padding: 0.8rem;
-  font-size: 0.8rem;
-  color: #666;
+.cart-nav-btn {
+  position: relative;
+}
+
+.cart-count-badge {
+  position: relative;
+  top: -1px;
+  margin-right: 4px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #ff8ac5;
+  color: #fff;
+  font-size: 0.7rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {
@@ -555,7 +575,7 @@ input:focus {
     <nav class="main-nav">
       <button class="nav-btn" data-view="home">בית</button>
       <button class="nav-btn" data-view="catalog">קטגוריות ומוצרים</button>
-      <button class="nav-btn" data-view="cart">עגלת קניות</button>
+      <button class="nav-btn cart-nav-btn" data-view="cart">עגלת קניות <span id="cart-count-badge" class="cart-count-badge">0</span></button>
     </nav>
     <div class="user-area">
       <span id="user-greeting"></span>
@@ -606,23 +626,23 @@ const state = {
   user: null,
   cart: [],
   products: [
-    { id: 1, name: "לחם פרוס מלא", category: "סופרמרקט", price: 9.9, icon: "🍞" },
-    { id: 2, name: "חלב 3 אחוז", category: "סופרמרקט", price: 6.5, icon: "🥛" },
-    { id: 3, name: "קפה נמס 200 גרם", category: "סופרמרקט", price: 23.9, icon: "☕" },
-    { id: 4, name: "טלפון סלולרי בסיסי", category: "מוצרי חשמל", price: 299, icon: "📱" },
-    { id: 5, name: "קומקום חשמלי", category: "מוצרי חשמל", price: 89, icon: "☕" },
-    { id: 6, name: "קרם לחות לפנים", category: "בריאות וטיפוח", price: 39, icon: "🧴" },
-    { id: 7, name: "שמפו לשיער", category: "בריאות וטיפוח", price: 24.9, icon: "🧴" },
-    { id: 8, name: "חולצת טריקו נוחה", category: "ביגוד", price: 49, icon: "👕" },
-    { id: 9, name: "גרביים כותנה 3 זוגות", category: "ביגוד", price: 29, icon: "🧦" },
-    { id: 10, name: "עגבניות שרי מארז", category: "סופרמרקט", price: 12.9, icon: "🍅" },
-    { id: 11, name: "גבינה לבנה 5 אחוז", category: "סופרמרקט", price: 8.9, icon: "🧀" },
-    { id: 12, name: "מחשב נייד בסיסי", category: "מוצרי חשמל", price: 1599, icon: "💻" },
-    { id: 13, name: "טלוויזיה 43 אינץ׳", category: "מוצרי חשמל", price: 1790, icon: "📺" },
-    { id: 14, name: "מקל הליכה מתקפל", category: "בריאות וטיפוח", price: 119, icon: "🚶" },
-    { id: 15, name: "נעלי ספורט נוחות", category: "ביגוד", price: 199, icon: "👟" },
-    { id: 16, name: "סוודר חורפי מחמם", category: "ביגוד", price: 139, icon: "🧥" },
-    { id: 17, name: "מולטי ויטמין יומי", category: "בריאות וטיפוח", price: 89, icon: "💊" }
+    { id: 1, name: "לחם פרוס מלא", category: "סופרמרקט", price: 9.9, icon: "🍞", image: "https://source.unsplash.com/400x300/?bread" },
+    { id: 2, name: "חלב 3 אחוז", category: "סופרמרקט", price: 6.5, icon: "🥛", image: "https://source.unsplash.com/400x300/?milk" },
+    { id: 3, name: "קפה נמס 200 גרם", category: "סופרמרקט", price: 23.9, icon: "☕", image: "https://source.unsplash.com/400x300/?coffee" },
+    { id: 4, name: "טלפון סלולרי בסיסי", category: "מוצרי חשמל", price: 299, icon: "📱", image: "https://source.unsplash.com/400x300/?mobile,phone" },
+    { id: 5, name: "קומקום חשמלי", category: "מוצרי חשמל", price: 89, icon: "☕", image: "https://source.unsplash.com/400x300/?kettle" },
+    { id: 6, name: "קרם לחות לפנים", category: "בריאות וטיפוח", price: 39, icon: "🧴", image: "https://source.unsplash.com/400x300/?face,cream" },
+    { id: 7, name: "שמפו לשיער", category: "בריאות וטיפוח", price: 24.9, icon: "🧴", image: "https://source.unsplash.com/400x300/?shampoo" },
+    { id: 8, name: "חולצת טריקו נוחה", category: "ביגוד", price: 49, icon: "👕", image: "https://source.unsplash.com/400x300/?tshirt" },
+    { id: 9, name: "גרביים כותנה 3 זוגות", category: "ביגוד", price: 29, icon: "🧦", image: "https://source.unsplash.com/400x300/?socks" },
+    { id: 10, name: "עגבניות שרי מארז", category: "סופרמרקט", price: 12.9, icon: "🍅", image: "https://source.unsplash.com/400x300/?cherry,tomatoes" },
+    { id: 11, name: "גבינה לבנה 5 אחוז", category: "סופרמרקט", price: 8.9, icon: "🧀", image: "https://source.unsplash.com/400x300/?cheese" },
+    { id: 12, name: "מחשב נייד בסיסי", category: "מוצרי חשמל", price: 1599, icon: "💻", image: "https://source.unsplash.com/400x300/?laptop" },
+    { id: 13, name: "טלוויזיה 43 אינץ׳", category: "מוצרי חשמל", price: 1790, icon: "📺", image: "https://source.unsplash.com/400x300/?television" },
+    { id: 14, name: "מקל הליכה מתקפל", category: "בריאות וטיפוח", price: 119, icon: "🚶", image: "https://source.unsplash.com/400x300/?walking,cane" },
+    { id: 15, name: "נעלי ספורט נוחות", category: "ביגוד", price: 199, icon: "👟", image: "https://source.unsplash.com/400x300/?running,shoes" },
+    { id: 16, name: "סוודר חורפי מחמם", category: "ביגוד", price: 139, icon: "🧥", image: "https://source.unsplash.com/400x300/?sweater" },
+    { id: 17, name: "מולטי ויטמין יומי", category: "בריאות וטיפוח", price: 89, icon: "💊", image: "https://source.unsplash.com/400x300/?vitamins" }
   ]
 };
 
@@ -631,6 +651,7 @@ const categories = ["הכל", "סופרמרקט", "מוצרי חשמל", "ברי
 document.addEventListener("DOMContentLoaded", () => {
   setupHeaderEvents();
   renderView("home");
+  updateCartCountBadge();
 });
 
 function setupHeaderEvents() {
@@ -659,6 +680,7 @@ function setupHeaderEvents() {
       email: "example.user@gmail.com"
     };
     updateUserGreeting();
+    updateCartCountBadge();
     closeLoginModal();
     renderView("catalog");
   });
@@ -670,11 +692,13 @@ function setupHeaderEvents() {
     if (!name || !email) return;
     state.user = { name, email };
     updateUserGreeting();
+    updateCartCountBadge();
     closeLoginModal();
     renderView("catalog");
   });
 
   updateUserGreeting();
+  updateCartCountBadge();
 }
 
 function openLoginModal() {
@@ -694,6 +718,18 @@ function updateUserGreeting() {
   } else {
     span.textContent = "";
     loginBtn.textContent = "התחברות";
+  }
+}
+
+function updateCartCountBadge() {
+  const badge = document.getElementById("cart-count-badge");
+  if (!badge) return;
+  const count = state.cart.reduce((sum, item) => sum + item.qty, 0);
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = "inline-flex";
+  } else {
+    badge.style.display = "none";
   }
 }
 
@@ -801,7 +837,9 @@ function buildProductsGrid(category) {
   return items.map(p => {
     return `
       <article class="product-card" data-id="${p.id}">
-        <div class="product-image">${p.icon}</div>
+        <div class="product-image">
+          ${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" />` : p.icon}
+        </div>
         <div class="product-name">${p.name}</div>
         <div class="product-meta">
           <span>${p.category}</span>
@@ -847,6 +885,7 @@ function addToCart(productId) {
     state.cart.push({ ...product, qty: 1 });
   }
   alert("המוצר נוסף לעגלה לצורכי תרגול");
+  updateCartCountBadge();
 }
 
 function buildCartView() {
@@ -946,6 +985,7 @@ function setupCartEvents() {
             state.cart = state.cart.filter(i => i.id !== id);
           }
         }
+        updateCartCountBadge();
         renderView("cart");
       });
     });
@@ -1114,6 +1154,7 @@ function setupThankyouEvents() {
   if (btn) {
     btn.addEventListener("click", () => {
       state.cart = [];
+      updateCartCountBadge();
       renderView("catalog");
     });
   }
