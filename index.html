@@ -399,6 +399,11 @@ input:focus {
   box-shadow: 0 0 0 1px rgba(47,158,68,0.2);
 }
 
+.input-error {
+  border-color: #e03131 !important;
+  box-shadow: 0 0 0 1px rgba(224,49,49,0.4);
+}
+
 .full-width {
   width: 100%;
 }
@@ -587,6 +592,7 @@ input:focus {
 
   <footer class="site-footer">
     <p>האתר נועד לתרגול בלבד, אין חיובי אשראי ואין שמירת פרטים אישיים.</p>
+    <p>האתר נוצר ע"י עמותת מחשבה טובה לצורך תרגול.</p>
   </footer>
 
   <div id="login-modal" class="modal hidden">
@@ -777,9 +783,6 @@ function buildHomeView() {
           <button id="start-training-btn" class="primary-btn">
             התחלת תרגול קניות אונליין
           </button>
-          <button class="secondary-btn" onclick="renderView('catalog')">
-            לראות את המוצרים לדוגמה
-          </button>
         </div>
       </div>
       <div>
@@ -788,7 +791,7 @@ function buildHomeView() {
           <li>השוואת מחירים בין מוצרים דומים</li>
           <li>הבנת עגלת הקניות והוספה או הורדה של פריטים</li>
           <li>מילוי נכון של כתובת למשלוח ופרטי קשר</li>
-          <li>הכנסת פרטי כרטיס אשראי לצורכי תרגול בלבד</li>
+          <li>הכנסת פרטי כרטיס אשראי מדומה לצורכי תרגול בלבד</li>
           <li>שיחה על בטיחות, סימני אזהרה ואתרי קניות אמינים</li>
         </ul>
       </div>
@@ -1004,7 +1007,7 @@ function buildCheckoutView() {
     <section class="checkout-layout">
       <h2 class="section-title">מילוי פרטים ופרטי תשלום לדוגמה</h2>
       <p class="checkout-note">
-        כאן מתרגלים מילוי כתובת ופרטי כרטיס אשראי. אין חיוב אמיתי, אין חיבור לחברת אשראי,
+        כאן מתרגלים מילוי כתובת ופרטי כרטיס אשראי מדומה. אין חיוב אמיתי, אין חיבור לחברת אשראי,
         והנתונים אינם נשמרים לצורכי תשלום.
       </p>
       <form id="checkout-form">
@@ -1036,7 +1039,7 @@ function buildCheckoutView() {
           </label>
         </div>
 
-        <h3 style="margin-top:1.2rem;">פרטי כרטיס אשראי לדוגמה</h3>
+        <h3 style="margin-top:1.2rem;">פרטי כרטיס אשראי מדומה לדוגמה</h3>
         <div class="form-grid">
           <label>
             מספר כרטיס (16 ספרות)
@@ -1079,14 +1082,28 @@ function setupCheckoutEvents() {
   const form = document.getElementById("checkout-form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const cardNumber = document.getElementById("card-number").value.replace(/\s/g, "");
-    const cvv = document.getElementById("card-cvv").value.trim();
+
+    const cardNumberInput = document.getElementById("card-number");
+    const cardExpiryInput = document.getElementById("card-expiry");
+    const cardCvvInput = document.getElementById("card-cvv");
+
+    const cardNumber = cardNumberInput.value.replace(/\s/g, "");
+    const expiry = cardExpiryInput.value.trim();
+    const cvv = cardCvvInput.value.trim();
+
+    cardNumberInput.classList.remove("input-error");
+    cardExpiryInput.classList.remove("input-error");
+    cardCvvInput.classList.remove("input-error");
 
     const cardValid = /^[0-9]{16}$/.test(cardNumber);
+    const expiryValid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry);
     const cvvValid = /^[0-9]{3}$/.test(cvv);
 
-    if (!cardValid || !cvvValid) {
-      alert("לצורך התרגול, יש להכניס 16 ספרות במספר הכרטיס ו 3 ספרות ב CVV.");
+    if (!cardValid || !expiryValid || !cvvValid) {
+      if (!cardValid) cardNumberInput.classList.add("input-error");
+      if (!expiryValid) cardExpiryInput.classList.add("input-error");
+      if (!cvvValid) cardCvvInput.classList.add("input-error");
+      alert("לצורך התרגול, יש להכניס 16 ספרות במספר הכרטיס, תוקף בפורמט חודש/שנה, ו 3 ספרות ב CVV. שדות שגויים מסומנים באדום.");
       return;
     }
 
@@ -1124,7 +1141,7 @@ function buildThankyouView() {
       <h2>תודה שקנית באתר התרגול</h2>
       <p>
         ההזמנה המדומה שלך התקבלה. זו סימולציה לצורכי לימוד בלבד,
-        אין חיוב אמיתי של כרטיס אשראי ואין שמירת נתוני הכרטיס.
+        אין חיוב אמיתי, הכרטיס הוא כרטיס אשראי מדומה ואין שמירת נתוני הכרטיס.
       </p>
       <div class="thankyou-details">
         <h3>סיכום הזמנה לדוגמה</h3>
