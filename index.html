@@ -1080,30 +1080,89 @@ function buildCheckoutView() {
 
 function setupCheckoutEvents() {
   const form = document.getElementById("checkout-form");
+  const cardNumberInput = document.getElementById("card-number");
+  const cardExpiryInput = document.getElementById("card-expiry");
+  const cardCvvInput = document.getElementById("card-cvv");
+
+  function toggleError(inputEl, hasError) {
+    if (!inputEl) return;
+    if (hasError) {
+      inputEl.classList.add("input-error");
+    } else {
+      inputEl.classList.remove("input-error");
+    }
+  }
+
+  function cleanCardNumber(value) {
+    return value.replace(/\D/g, "").slice(0, 16);
+  }
+
+  function formatCardNumber(value) {
+    const digits = cleanCardNumber(value);
+    return digits.replace(/(.{4})/g, "$1 ").trim();
+  }
+
+  function validateCardNumber() {
+    if (!cardNumberInput) return false;
+    const digits = cleanCardNumber(cardNumberInput.value);
+    const valid = /^[0-9]{16}$/.test(digits);
+    toggleError(cardNumberInput, !valid);
+    return valid;
+  }
+
+  function validateExpiry() {
+    if (!cardExpiryInput) return false;
+    let v = cardExpiryInput.value.replace(/\s/g, "");
+    v = v.replace(/[^\d/]/g, "");
+    if (v.length === 2 && !v.includes("/")) {
+      v = v + "/";
+    }
+    if (v.length > 5) v = v.slice(0, 5);
+    cardExpiryInput.value = v;
+    const valid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(v);
+    toggleError(cardExpiryInput, !valid);
+    return valid;
+  }
+
+  function validateCvv() {
+    if (!cardCvvInput) return false;
+    let v = cardCvvInput.value.replace(/\D/g, "").slice(0, 3);
+    cardCvvInput.value = v;
+    const valid = /^[0-9]{3}$/.test(v);
+    toggleError(cardCvvInput, !valid);
+    return valid;
+  }
+
+  // ולידציה חיה בזמן הקלדה
+  if (cardNumberInput) {
+    cardNumberInput.addEventListener("input", () => {
+      cardNumberInput.value = formatCardNumber(cardNumberInput.value);
+      validateCardNumber();
+    });
+  }
+
+  if (cardExpiryInput) {
+    cardExpiryInput.addEventListener("input", () => {
+      validateExpiry();
+    });
+  }
+
+  if (cardCvvInput) {
+    cardCvvInput.addEventListener("input", () => {
+      validateCvv();
+    });
+  }
+
+  // חסימה ב-submit אם יש שגיאות
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const cardNumberInput = document.getElementById("card-number");
-    const cardExpiryInput = document.getElementById("card-expiry");
-    const cardCvvInput = document.getElementById("card-cvv");
+    const cardOk = validateCardNumber();
+    const expiryOk = validateExpiry();
+    const cvvOk = validateCvv();
 
-    const cardNumber = cardNumberInput.value.replace(/\s/g, "");
-    const expiry = cardExpiryInput.value.trim();
-    const cvv = cardCvvInput.value.trim();
-
-    cardNumberInput.classList.remove("input-error");
-    cardExpiryInput.classList.remove("input-error");
-    cardCvvInput.classList.remove("input-error");
-
-    const cardValid = /^[0-9]{16}$/.test(cardNumber);
-    const expiryValid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry);
-    const cvvValid = /^[0-9]{3}$/.test(cvv);
-
-    if (!cardValid || !expiryValid || !cvvValid) {
-      if (!cardValid) cardNumberInput.classList.add("input-error");
-      if (!expiryValid) cardExpiryInput.classList.add("input-error");
-      if (!cvvValid) cardCvvInput.classList.add("input-error");
-      alert("לצורך התרגול, יש להכניס 16 ספרות במספר הכרטיס, תוקף בפורמט חודש/שנה, ו 3 ספרות ב CVV. שדות שגויים מסומנים באדום.");
+    if (!cardOk || !expiryOk || !cvvOk) {
+      alert("לצורך התרגול, יש להכניס מספר כרטיס בן 16 ספרות, תוקף בפורמט חודש/שנה, ו 3 ספרות ב CVV. שדות שגויים מסומנים באדום.");
       return;
     }
 
@@ -1124,6 +1183,7 @@ function setupCheckoutEvents() {
     renderView("thankyou");
   });
 }
+
 
 function buildThankyouView() {
   const total = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
