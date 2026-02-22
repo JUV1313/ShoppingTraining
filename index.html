@@ -662,73 +662,25 @@ body {
   color: #4a8cff;
   font-weight: bold;
   margin-top: 6px;
-}
-</style>
-</head>
-<body>
-
-<h1>מוצרים לתרגול</h1>
-
-<div class="products">
-
-  <div class="card">
-    <img src="https://picsum.photos/id/292/400/300" alt="לחם" loading="lazy">
-    <h3>לחם פרוס מלא</h3>
-    <div class="price">9.9 ₪</div>
-  </div>
-
-  <div class="card">
-    <img src="https://picsum.photos/id/433/400/300" alt="חלב" loading="lazy">
-    <h3>חלב 3 אחוז</h3>
-    <div class="price">6.5 ₪</div>
-  </div>
-
-  <div class="card">
-    <img src="https://picsum.photos/id/1060/400/300" alt="קפה" loading="lazy">
-    <h3>קפה נמס 200 גרם</h3>
-    <div class="price">23.9 ₪</div>
-  </div>
-
-  <div class="card">
-    <img src="https://picsum.photos/id/1/400/300" alt="טלפון" loading="lazy">
-    <h3>טלפון סלולרי בסיסי</h3>
-    <div class="price">299 ₪</div>
-  </div>
-
-  <div class="card">
-    <img src="https://picsum.photos/id/20/400/300" alt="קומקום" loading="lazy">
-    <h3>קומקום חשמלי</h3>
-    <div class="price">89 ₪</div>
-  </div>
-
-  <div class="card">
-    <img src="https://picsum.photos/id/1027/400/300" alt="קרם" loading="lazy">
-    <h3>קרם לחות לפנים</h3>
-    <div class="price">39 ₪</div>
-  </div>
-
-  <div class="card">
-    <img src="https://picsum.photos/id/1080/400/300" alt="שמפו" loading="lazy">
-    <h3>שמפו לשיער</h3>
-    <div class="price">24.9 ₪</div>
-  </div>
-
-  <div class="card">
-    <img src="https://picsum.photos/id/1005/400/300" alt="חולצה" loading="lazy">
-    <h3>חולצת טריקו נוחה</h3>
-    <div class="price">49 ₪</div>
-  </div>
-
-  <div class="card">
-    <img src="https://picsum.photos/id/1024/400/300" alt="גרביים" loading="lazy">
-    <h3>גרביים כותנה</h3>
-    <div class="price">29 ₪</div>
-  </div>
-
-</div>
-
-</body>
-</html>
+}products: [
+  { id: 1, name: "לחם פרוס מלא", category: "סופרמרקט", price: 9.9, icon: "🍞", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 2, name: "חלב 3 אחוז", category: "סופרמרקט", price: 6.5, icon: "🥛", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 3, name: "קפה נמס 200 גרם", category: "סופרמרקט", price: 23.9, icon: "☕", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 4, name: "טלפון סלולרי בסיסי", category: "מוצרי חשמל", price: 299, icon: "📱", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 5, name: "קומקום חשמלי", category: "מוצרי חשמל", price: 89, icon: "☕", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 6, name: "קרם לחות לפנים", category: "בריאות וטיפוח", price: 39, icon: "🧴", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 7, name: "שמפו לשיער", category: "בריאות וטיפוח", price: 24.9, icon: "🧴", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 8, name: "חולצת טריקו נוחה", category: "ביגוד", price: 49, icon: "👕", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 9, name: "גרביים כותנה 3 זוגות", category: "ביגוד", price: 29, icon: "🧦", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 10, name: "עגבניות שרי מארז", category: "סופרמרקט", price: 12.9, icon: "🍅", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 11, name: "גבינה לבנה 5 אחוז", category: "סופרמרקט", price: 8.9, icon: "🧀", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 12, name: "מחשב נייד בסיסי", category: "מוצרי חשמל", price: 1599, icon: "💻", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 13, name: "טלוויזיה 43 אינץ׳", category: "מוצרי חשמל", price: 1790, icon: "📺", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 14, name: "מקל הליכה מתקפל", category: "בריאות וטיפוח", price: 119, icon: "🚶", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 15, name: "נעלי ספורט נוחות", category: "ביגוד", price: 199, icon: "👟", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 16, name: "סוודר חורפי מחמם", category: "ביגוד", price: 139, icon: "🧥", image: "PASTE_IMAGE_URL_HERE" },
+  { id: 17, name: "מולטי ויטמין יומי", category: "בריאות וטיפוח", price: 89, icon: "💊", image: "PASTE_IMAGE_URL_HERE" }
+]
 
 const categories = ["הכל", "סופרמרקט", "מוצרי חשמל", "בריאות וטיפוח", "ביגוד"];
 
