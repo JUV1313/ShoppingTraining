@@ -399,11 +399,6 @@ input:focus {
   box-shadow: 0 0 0 1px rgba(47,158,68,0.2);
 }
 
-.input-error {
-  border-color: #e03131 !important;
-  box-shadow: 0 0 0 1px rgba(224,49,49,0.4);
-}
-
 .full-width {
   width: 100%;
 }
@@ -592,7 +587,6 @@ input:focus {
 
   <footer class="site-footer">
     <p>האתר נועד לתרגול בלבד, אין חיובי אשראי ואין שמירת פרטים אישיים.</p>
-    <p>האתר נוצר ע"י עמותת מחשבה טובה לצורך תרגול.</p>
   </footer>
 
   <div id="login-modal" class="modal hidden">
@@ -627,62 +621,40 @@ input:focus {
     </div>
   </div>
 
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<title>אתר תרגול קניות</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f6fa;
-  margin: 0;
-  padding: 20px;
-}
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-.card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-.price {
-  color: #4a8cff;
-  font-weight: bold;
-  margin-top: 6px;
-}products: [
-  { id: 1, name: "לחם פרוס מלא", category: "סופרמרקט", price: 9.9, icon: "🍞", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 2, name: "חלב 3 אחוז", category: "סופרמרקט", price: 6.5, icon: "🥛", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 3, name: "קפה נמס 200 גרם", category: "סופרמרקט", price: 23.9, icon: "☕", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 4, name: "טלפון סלולרי בסיסי", category: "מוצרי חשמל", price: 299, icon: "📱", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 5, name: "קומקום חשמלי", category: "מוצרי חשמל", price: 89, icon: "☕", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 6, name: "קרם לחות לפנים", category: "בריאות וטיפוח", price: 39, icon: "🧴", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 7, name: "שמפו לשיער", category: "בריאות וטיפוח", price: 24.9, icon: "🧴", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 8, name: "חולצת טריקו נוחה", category: "ביגוד", price: 49, icon: "👕", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 9, name: "גרביים כותנה 3 זוגות", category: "ביגוד", price: 29, icon: "🧦", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 10, name: "עגבניות שרי מארז", category: "סופרמרקט", price: 12.9, icon: "🍅", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 11, name: "גבינה לבנה 5 אחוז", category: "סופרמרקט", price: 8.9, icon: "🧀", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 12, name: "מחשב נייד בסיסי", category: "מוצרי חשמל", price: 1599, icon: "💻", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 13, name: "טלוויזיה 43 אינץ׳", category: "מוצרי חשמל", price: 1790, icon: "📺", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 14, name: "מקל הליכה מתקפל", category: "בריאות וטיפוח", price: 119, icon: "🚶", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 15, name: "נעלי ספורט נוחות", category: "ביגוד", price: 199, icon: "👟", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 16, name: "סוודר חורפי מחמם", category: "ביגוד", price: 139, icon: "🧥", image: "PASTE_IMAGE_URL_HERE" },
-  { id: 17, name: "מולטי ויטמין יומי", category: "בריאות וטיפוח", price: 89, icon: "💊", image: "PASTE_IMAGE_URL_HERE" }
-]
+  <script>
+const state = {
+  user: null,
+  cart: [],
+  products: [
+    { id: 1, name: "לחם פרוס מלא", category: "סופרמרקט", price: 9.9, icon: "🍞", image: "https://loremflickr.com/400/300/bread?lock=1" },
+    { id: 2, name: "חלב 3 אחוז", category: "סופרמרקט", price: 6.5, icon: "🥛", image: "https://loremflickr.com/400/300/milk?lock=2" },
+    { id: 3, name: "קפה נמס 200 גרם", category: "סופרמרקט", price: 23.9, icon: "☕", image: "https://loremflickr.com/400/300/coffee?lock=3" },
+    { id: 4, name: "טלפון סלולרי בסיסי", category: "מוצרי חשמל", price: 299, icon: "📱", image: "https://loremflickr.com/400/300/phone?lock=4" },
+    { id: 5, name: "קומקום חשמלי", category: "מוצרי חשמל", price: 89, icon: "☕", image: "https://loremflickr.com/400/300/kettle?lock=5" },
+    { id: 6, name: "קרם לחות לפנים", category: "בריאות וטיפוח", price: 39, icon: "🧴", image: "https://loremflickr.com/400/300/moisturizer?lock=6" },
+    { id: 7, name: "שמפו לשיער", category: "בריאות וטיפוח", price: 24.9, icon: "🧴", image: "https://loremflickr.com/400/300/shampoo?lock=7" },
+    { id: 8, name: "חולצת טריקו נוחה", category: "ביגוד", price: 49, icon: "👕", image: "https://loremflickr.com/400/300/tshirt?lock=8" },
+    { id: 9, name: "גרביים כותנה 3 זוגות", category: "ביגוד", price: 29, icon: "🧦", image: "https://loremflickr.com/400/300/socks?lock=9" },
+    { id: 10, name: "עגבניות שרי מארז", category: "סופרמרקט", price: 12.9, icon: "🍅", image: "https://loremflickr.com/400/300/tomatoes?lock=10" },
+    { id: 11, name: "גבינה לבנה 5 אחוז", category: "סופרמרקט", price: 8.9, icon: "🧀", image: "https://loremflickr.com/400/300/cheese?lock=11" },
+    { id: 12, name: "מחשב נייד בסיסי", category: "מוצרי חשמל", price: 1599, icon: "💻", image: "https://loremflickr.com/400/300/laptop?lock=12" },
+    { id: 13, name: "טלוויזיה 43 אינץ׳", category: "מוצרי חשמל", price: 1790, icon: "📺", image: "https://loremflickr.com/400/300/television?lock=13" },
+    { id: 14, name: "מקל הליכה מתקפל", category: "בריאות וטיפוח", price: 119, icon: "🚶", image: "https://loremflickr.com/400/300/walking-cane?lock=14" },
+    { id: 15, name: "נעלי ספורט נוחות", category: "ביגוד", price: 199, icon: "👟", image: "https://loremflickr.com/400/300/running-shoes?lock=15" },
+    { id: 16, name: "סוודר חורפי מחמם", category: "ביגוד", price: 139, icon: "🧥", image: "https://loremflickr.com/400/300/sweater?lock=16" },
+    { id: 17, name: "מולטי ויטמין יומי", category: "בריאות וטיפוח", price: 89, icon: "💊", image: "https://loremflickr.com/400/300/vitamins?lock=17" }
+  ]
+};
 
 const categories = ["הכל", "סופרמרקט", "מוצרי חשמל", "בריאות וטיפוח", "ביגוד"];
+
+// ייבוא תמונות מהאינטרנט בצורה יציבה יחסית, בלי API key.
+// שים לב: זו לא "הורדה" לתיקייה, זו הצגה של תמונה חיצונית בתוך האתר.
+function getProductImageUrl(product) {
+  const q = encodeURIComponent(product.imageQuery || product.name);
+  // sig קובע וריאציה קבועה לכל מוצר כדי שלא תתחלף כל רענון.
+  return `https://source.unsplash.com/400x300/?${q}&sig=${product.id}`;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   setupHeaderEvents();
@@ -813,6 +785,9 @@ function buildHomeView() {
           <button id="start-training-btn" class="primary-btn">
             התחלת תרגול קניות אונליין
           </button>
+          <button class="secondary-btn" onclick="renderView('catalog')">
+            לראות את המוצרים לדוגמה
+          </button>
         </div>
       </div>
       <div>
@@ -821,7 +796,7 @@ function buildHomeView() {
           <li>השוואת מחירים בין מוצרים דומים</li>
           <li>הבנת עגלת הקניות והוספה או הורדה של פריטים</li>
           <li>מילוי נכון של כתובת למשלוח ופרטי קשר</li>
-          <li>הכנסת פרטי כרטיס אשראי מדומה לצורכי תרגול בלבד</li>
+          <li>הכנסת פרטי כרטיס אשראי לצורכי תרגול בלבד</li>
           <li>שיחה על בטיחות, סימני אזהרה ואתרי קניות אמינים</li>
         </ul>
       </div>
@@ -871,7 +846,7 @@ function buildProductsGrid(category) {
     return `
       <article class="product-card" data-id="${p.id}">
         <div class="product-image">
-          ${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" />` : p.icon}
+          ${`<img src="${getProductImageUrl(p)}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=No+Image';" />`}
         </div>
         <div class="product-name">${p.name}</div>
         <div class="product-meta">
@@ -1037,7 +1012,7 @@ function buildCheckoutView() {
     <section class="checkout-layout">
       <h2 class="section-title">מילוי פרטים ופרטי תשלום לדוגמה</h2>
       <p class="checkout-note">
-        כאן מתרגלים מילוי כתובת ופרטי כרטיס אשראי מדומה. אין חיוב אמיתי, אין חיבור לחברת אשראי,
+        כאן מתרגלים מילוי כתובת ופרטי כרטיס אשראי. אין חיוב אמיתי, אין חיבור לחברת אשראי,
         והנתונים אינם נשמרים לצורכי תשלום.
       </p>
       <form id="checkout-form">
@@ -1069,7 +1044,7 @@ function buildCheckoutView() {
           </label>
         </div>
 
-        <h3 style="margin-top:1.2rem;">פרטי כרטיס אשראי מדומה לדוגמה</h3>
+        <h3 style="margin-top:1.2rem;">פרטי כרטיס אשראי לדוגמה</h3>
         <div class="form-grid">
           <label>
             מספר כרטיס (16 ספרות)
@@ -1110,89 +1085,16 @@ function buildCheckoutView() {
 
 function setupCheckoutEvents() {
   const form = document.getElementById("checkout-form");
-  const cardNumberInput = document.getElementById("card-number");
-  const cardExpiryInput = document.getElementById("card-expiry");
-  const cardCvvInput = document.getElementById("card-cvv");
-
-  function toggleError(inputEl, hasError) {
-    if (!inputEl) return;
-    if (hasError) {
-      inputEl.classList.add("input-error");
-    } else {
-      inputEl.classList.remove("input-error");
-    }
-  }
-
-  function cleanCardNumber(value) {
-    return value.replace(/\D/g, "").slice(0, 16);
-  }
-
-  function formatCardNumber(value) {
-    const digits = cleanCardNumber(value);
-    return digits.replace(/(.{4})/g, "$1 ").trim();
-  }
-
-  function validateCardNumber() {
-    if (!cardNumberInput) return false;
-    const digits = cleanCardNumber(cardNumberInput.value);
-    const valid = /^[0-9]{16}$/.test(digits);
-    toggleError(cardNumberInput, !valid);
-    return valid;
-  }
-
-  function validateExpiry() {
-    if (!cardExpiryInput) return false;
-    let v = cardExpiryInput.value.replace(/\s/g, "");
-    v = v.replace(/[^\d/]/g, "");
-    if (v.length === 2 && !v.includes("/")) {
-      v = v + "/";
-    }
-    if (v.length > 5) v = v.slice(0, 5);
-    cardExpiryInput.value = v;
-    const valid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(v);
-    toggleError(cardExpiryInput, !valid);
-    return valid;
-  }
-
-  function validateCvv() {
-    if (!cardCvvInput) return false;
-    let v = cardCvvInput.value.replace(/\D/g, "").slice(0, 3);
-    cardCvvInput.value = v;
-    const valid = /^[0-9]{3}$/.test(v);
-    toggleError(cardCvvInput, !valid);
-    return valid;
-  }
-
-  // ולידציה חיה בזמן הקלדה
-  if (cardNumberInput) {
-    cardNumberInput.addEventListener("input", () => {
-      cardNumberInput.value = formatCardNumber(cardNumberInput.value);
-      validateCardNumber();
-    });
-  }
-
-  if (cardExpiryInput) {
-    cardExpiryInput.addEventListener("input", () => {
-      validateExpiry();
-    });
-  }
-
-  if (cardCvvInput) {
-    cardCvvInput.addEventListener("input", () => {
-      validateCvv();
-    });
-  }
-
-  // חסימה ב-submit אם יש שגיאות
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    const cardNumber = document.getElementById("card-number").value.replace(/\s/g, "");
+    const cvv = document.getElementById("card-cvv").value.trim();
 
-    const cardOk = validateCardNumber();
-    const expiryOk = validateExpiry();
-    const cvvOk = validateCvv();
+    const cardValid = /^[0-9]{16}$/.test(cardNumber);
+    const cvvValid = /^[0-9]{3}$/.test(cvv);
 
-    if (!cardOk || !expiryOk || !cvvOk) {
-      alert("לצורך התרגול, יש להכניס מספר כרטיס בן 16 ספרות, תוקף בפורמט חודש/שנה, ו 3 ספרות ב CVV. שדות שגויים מסומנים באדום.");
+    if (!cardValid || !cvvValid) {
+      alert("לצורך התרגול, יש להכניס 16 ספרות במספר הכרטיס ו 3 ספרות ב CVV.");
       return;
     }
 
@@ -1214,7 +1116,6 @@ function setupCheckoutEvents() {
   });
 }
 
-
 function buildThankyouView() {
   const total = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const shipping = total > 150 || total === 0 ? 0 : 15;
@@ -1231,7 +1132,7 @@ function buildThankyouView() {
       <h2>תודה שקנית באתר התרגול</h2>
       <p>
         ההזמנה המדומה שלך התקבלה. זו סימולציה לצורכי לימוד בלבד,
-        אין חיוב אמיתי, הכרטיס הוא כרטיס אשראי מדומה ואין שמירת נתוני הכרטיס.
+        אין חיוב אמיתי של כרטיס אשראי ואין שמירת נתוני הכרטיס.
       </p>
       <div class="thankyou-details">
         <h3>סיכום הזמנה לדוגמה</h3>
